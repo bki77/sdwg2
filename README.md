@@ -19,7 +19,9 @@ python manage.py runserver
 ```
 ### Откроется наш проект с которым и предстоит работать
 
-
+## &nbsp;
+## &nbsp;
+## &nbsp;
 
 # <a name="models.py">Model.py от Sergay</a> 
 
