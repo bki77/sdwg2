@@ -16,7 +16,15 @@
 
 ### Создайте пустую папку и загрузите в него [Start.bat](https://github.com/Alexandr1810/HostelComfort/tree/ilya/.bat) и запустите
 ### По-итогу завершения работы bat файла будут установлены все библиотеки и созданы необходимые файлы для работы сайта  
-### После в директории ../Hostle-Comfort/myproject откройте консоль и пропишите 
+### После в директории ../Hostle-Comfort/myproject откройте консоль и пропишите следующие команды по порядку:
+```
+python manage.py makemigrations
+python manage.py migrate
+python manage.py migrate product 
+python manage.py migrate sessions
+python manage.py createsuperuser
+```
+### Далее всё в той же командной строке введите команду:
 ``` 
 python manage.py runserver 
 ```
