@@ -30,7 +30,7 @@ python manage.py runserver
 ## Создание  таблиц в базе данных
 
 #### Импорты
-```
+``` python
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
@@ -39,7 +39,7 @@ from django.core.exceptions import ValidationError
 
 #### Cоздание таблицы  Hotel и её атрибуты,также имеется рейтинг ограниченный выбором от 0 до 5
 
-```
+```python
 class Hotel(models.Model):
     RATING_CHOICES = [
         (0, '0'),
@@ -57,18 +57,18 @@ class Hotel(models.Model):
     rating = models.IntegerField(choices=RATING_CHOICES)
 ```
 #### вывод данных в браузер для таблицы Отель
-```
+```python
     def __str__(self):
         return self.name
 ```
 #### подмена  названий на Отель, Отели
-```
+```python
     class Meta:
         verbose_name = 'Отель'
         verbose_name_plural = 'Отели'
 ```
 ## Выбор комнаты по её типу и какие удобства в них есть
-```
+```python
 class Room(models.Model):
     ROOM_TYPE_CHOICES = [
         (0, 'Одноместный'),
@@ -95,19 +95,19 @@ class Room(models.Model):
     price = models.IntegerField('Цена')
 ```
 #### вывод данных в браузер для таблицы Room
-```
+```python
     def __str__(self):
         room_num_display = f" №{self.room_number}" if self.room_number else ""
         return f"{self.get_type_display()}{room_num_display} (Отель: {self.hotel_id.name})"
 ```    
 #### подмена  названий на Комната, Комнаты для интерфейса админа
-```  
+```  python
     class Meta:
         verbose_name = 'Комната'
         verbose_name_plural = 'Комнаты'
 ```
 ## Таблица Clients
-```
+```python
 class Clients(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) 
     phio = models.CharField('ФИО', max_length=100)
@@ -117,19 +117,19 @@ class Clients(models.Model):
     passport_num = models.IntegerField('Номер паспорта')
 ```
 #### вывод данных в браузер для таблицы Clients
-```
+```python
     def __str__(self):
         return self.phio
 ```
 #### подмена  названий на Клиент, Клиенты для интерфейса админа
-```
+```python
     class Meta:
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
 ```
 
 ## таблица Reservations
-```
+```python
 class Reservations(models.Model):
     client_id = models.ForeignKey(Clients, on_delete=models.CASCADE, verbose_name='Клиент')
     room_id = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name='Комната')
@@ -138,19 +138,19 @@ class Reservations(models.Model):
     total_amount = models.IntegerField('Общая сумма')
 ```
 #### вывод данных в браузер для таблицы Reservations
-```
+```python
     def __str__(self):
         return f"Бронирование #{self.id} - {self.client_id.phio}"
 ```
 #### подмена  названий на Бронирование, Бронирования для интерфейса админа
-```
+```python
     class Meta:
         verbose_name = 'Бронирование'
         verbose_name_plural = 'Бронирования'
 ```
 
 ## таблица Reviews_and_ratings
-```
+```python
 class Reviews_and_ratings(models.Model):
     client_id = models.ForeignKey(Clients, on_delete=models.CASCADE, verbose_name='Клиент')
     hotel_id = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='Отель')
@@ -159,18 +159,18 @@ class Reviews_and_ratings(models.Model):
     date = models.DateTimeField('Дата публикации', auto_now_add=True)
 ```
 #### функци проверки корректности введённой даты
-```
+```python
     def clean(self):
       if self.departure_date <= self.check_in_date:
         raise ValidationError("Дата выезда должна быть позже даты заезда")
 ```
 #### возвращение строки с отзывом клиента и оценкой
-```
+```python
     def __str__(self):
         return f"Отзыв от {self.client_id.phio} ({self.estimation}/5)"
 ```
 #### подмена  названий на Отзывы и оценки для интерфейса админа
-```
+```python
     class Meta:
         verbose_name = 'Отзыв и оценка'
         verbose_name_plural = 'Отзывы и оценки'
@@ -181,7 +181,7 @@ class Reviews_and_ratings(models.Model):
 # <a name="views.py">Views.py от Sergay</a> 
 
 #### Импорт необходимых модулей для работы с запросами и аутентификацией
-```
+```python
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -194,7 +194,7 @@ from .forms import RegisterForm, LoginForm, Add, RoomForm
 ```
 
 #### Основная логика отображения и фильтрации отелей
-```
+```python
 # Обрабатывает запросы к главной странице с отелями, поддерживает фильтрацию по цене и удобствам
 def hotel(request):
     min_price = request.GET.get('min_price')
@@ -219,7 +219,7 @@ def hotel(request):
 ```
 
 #### Проверка применения фильтров и получение отфильтрованных отелей
-```
+```python
     filters_applied = any([
         min_price,
         max_price,
@@ -268,7 +268,7 @@ def hotel(request):
 ```
 
 #### Отображение информации об отеле и обработка отзывов
-```
+```python
 def hotel_info(request, id):
     hotel = get_object_or_404(Hotel, id=id)
     rooms = Room.objects.filter(hotel_id=hotel.id)
@@ -298,7 +298,7 @@ def hotel_info(request, id):
 ```
 
 #### Сбор удобств, доступных в номерах отеля
-```
+```python
     amenities_set = set()
     for room in rooms:
         if room.minbar:
@@ -332,7 +332,7 @@ def hotel_info(request, id):
 ```
 
 #### Формирование контекста и рендеринг страницы информации об отеле
-```
+```python
     context = {
         'hotel': hotel,
         'rooms': rooms,
@@ -344,7 +344,7 @@ def hotel_info(request, id):
 ```
 
 #### Обработка бронирования комнаты с проверкой доступности и валидацией данных
-```
+```python
 @login_required
 def booking(request, id, room_number=None):
     hotel = get_object_or_404(Hotel, id=id)
@@ -416,7 +416,7 @@ def booking(request, id, room_number=None):
 ```
 
 #### Отображение информации о бронировании комнаты
-```
+```python
 @login_required
 def booking_info(request, id, room_number=None):
     hotel = get_object_or_404(Hotel, id=id)
@@ -442,7 +442,7 @@ def booking_info(request, id, room_number=None):
 ```
 
 #### Регистрация пользователя и создание профиля клиента
-```
+```python
 # Обработка регистрации нового пользователя и создание связанного профиля клиента
 def register(request):
     if request.method == 'POST':
@@ -470,7 +470,7 @@ def register(request):
 ```
 
 #### Вход пользователя в систему с проверкой аутентификации
-```
+```python
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
@@ -491,7 +491,7 @@ def user_login(request):
 ```
 
 #### Выход пользователя из системы
-```
+```python
 # Выход из аккаунта 
 def user_logout(request):
     logout(request)
@@ -499,7 +499,7 @@ def user_logout(request):
 ```
 
 #### Отображение профиля пользователя и его бронирований
-```
+```python
 # Отображение профиля клиента и списка его бронирований
 @login_required
 def user_profile(request):
@@ -516,7 +516,7 @@ def user_profile(request):
 ```
 
 #### Добавление нового отеля
-```
+```python
 # Добавление нового отеля через форму
 @login_required
 def add(request):
@@ -533,7 +533,7 @@ def add(request):
 ```
 
 #### Отмена бронирования
-```
+```python
 # Отмена бронирования с проверкой прав пользователя
 @login_required
 def cancel_booking(request, booking_id):
@@ -550,7 +550,7 @@ def cancel_booking(request, booking_id):
 ```
 
 #### Удаление отеля
-```
+```python
 # Удаление отеля с подтверждением
 @login_required
 def delete(request, id):
@@ -562,7 +562,7 @@ def delete(request, id):
 ```
 
 #### Редактирование информации об отеле
-```
+```python
 # Редактирование данных отеля через форму
 @login_required
 def edit(request, id):
@@ -578,7 +578,7 @@ def edit(request, id):
 ```
 
 #### Удаление комментария с проверкой прав пользователя
-```
+```python
 # Удаление комментария к отзыву с проверкой прав доступа
 @login_required
 def comment_delete(request, id):
@@ -597,7 +597,7 @@ def comment_delete(request, id):
 ```
 
 #### Редактирование информации о комнате с проверкой прав доступа
-```
+```python
 # Редактирование информации о комнате, доступно только для сотрудников
 @login_required
 def edit_room(request, hotel_id, room_number):
@@ -625,7 +625,7 @@ def edit_room(request, hotel_id, room_number):
 # <a name="forms.py">forms.py от Sergay</a> 
 
 #### Импорт необходимых модулей и форм для создания пользовательских форм
-```
+```python
 from django import forms
 from .models import Hotel, Room
 from django.contrib.auth.forms import UserCreationForm
@@ -633,14 +633,14 @@ from django.contrib.auth.forms import AuthenticationForm
 ```
 
 #### Форма для входа пользователя с полями для телефона или email и пароля
-```
+```python
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Телефон или Email')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
 ```
 
 #### Форма регистрации пользователя с дополнительными полями профиля клиента
-```
+```python
 class RegisterForm(UserCreationForm):
     phio = forms.CharField(label='ФИО', max_length=100, required=True)
     phone = forms.CharField(label='Телефон', max_length=11, required=True)
@@ -654,7 +654,7 @@ class RegisterForm(UserCreationForm):
 ```
 
 #### Форма для добавления и редактирования информации об отеле
-```
+```python
 class Add(forms.ModelForm):
     class Meta:
         model = Hotel
@@ -670,7 +670,7 @@ class Add(forms.ModelForm):
 ```
 
 #### Форма для добавления и редактирования информации о комнате с множеством удобств
-```
+```python
 class RoomForm(forms.ModelForm):
     class Meta:
         model = Room
@@ -711,7 +711,7 @@ from . import views
 ```
 
 #### Определение маршрутов URL для различных страниц и действий
-```
+```python
 urlpatterns = [
     path('', views.hotel, name='hotel'),  # Главная страница с отелями
     path('hotel/<int:id>/', views.hotel_info, name='hotel_info'),  # Информация об отеле по id
@@ -736,7 +736,7 @@ urlpatterns = [
 # <a name="admin.py">admin.py от Sergay</a> 
 
 #### Импортируем необходимые модули и модели для регистрации в админке
-```
+```python
 from django.contrib import admin
 from .models import Hotel, Room, Clients, Reservations, Reviews_and_ratings
 from django.contrib.auth.admin import UserAdmin
@@ -745,7 +745,7 @@ from django.contrib.auth.models import User
 ```
 
 #### Встраиваем модель Clients в админку пользователя для дополнительной информации
-```
+```python
 class ClientsInline(admin.StackedInline):
     model = Clients
     can_delete = False
@@ -753,19 +753,19 @@ class ClientsInline(admin.StackedInline):
 ```
 
 #### Кастомизация админки пользователя с добавлением ClientsInline
-```
+```python
 class CustomUserAdmin(UserAdmin):
     inlines = (ClientsInline,)
 ```
 
 #### Настройка отображения списка и полей модели Hotel в административной панели Django
-```
+```python
 class HotelAdmin(admin.ModelAdmin):
     list_display = ('name', 'address', 'contact_phone', 'email', 'rating')
     fields = ('name', 'address', 'contact_phone', 'email', 'description', 'rating')
 ```
 #### Регистрация моделей в админке и замена стандартного User на кастомный
-```
+```python
 # Отменяем регистрацию стандартного User
 admin.site.unregister(User)
 # Регистрируем User с кастомным админом
