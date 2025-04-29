@@ -9,6 +9,10 @@
 [admin.py](#admin.py)  
 [ERD](#erd_diddy)
 
+### &nbsp;  
+### &nbsp;  
+### &nbsp;  
+
 # <a name="install_PO">Установка проекта</a>
 ### Создайте пустую папку и загрузите в него [Start.bat](https://github.com/Alexandr1810/HostelComfort/tree/ilya/.bat) и запустите
 ### По-итогу завершения работы bat файла будут установлены все библиотеки и созданы необходимые файлы для работы сайта  
@@ -187,6 +191,8 @@ class Reviews_and_ratings(models.Model):
         verbose_name_plural = 'Отзывы и оценки'
 ```
 
+### &nbsp;  
+
 # <a name="views.py">Views.py от Sergay</a> 
 
 #### импорт перенаправления на страницы сайта
@@ -349,6 +355,8 @@ def edit_client(request, id):
         client.save()
         return redirect('manager_dashboard')
 ```
+### &nbsp;  
+
 # <a name="forms.py">forms.py от Sergay</a>
 #### импорт из django необходимых модулей для создания форм 
 ```
@@ -378,6 +386,8 @@ class RegisterForm(UserCreationForm):
                  'phio', 'phone', 'passport_seria', 'passport_num')
 ```
 
+### &nbsp;  
+
 # <a name="urls.py">Urls.py от Sergay</a> 
 
 #### импорт из views.py
@@ -398,6 +408,8 @@ urlpatterns = [
     path('profile/', views.user_profile, name='user_profile'),
 ]
 ```
+
+### &nbsp;  
 
 # <a name="admin.py">admin.py от Sergay</a> 
 
