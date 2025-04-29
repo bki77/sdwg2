@@ -176,6 +176,8 @@ class Reviews_and_ratings(models.Model):
         verbose_name_plural = 'Отзывы и оценки'
 ```
 
+### &nbsp;
+
 # <a name="views.py">Views.py от Sergay</a> 
 
 #### Импорт необходимых модулей для работы с запросами и аутентификацией
@@ -618,6 +620,8 @@ def edit_room(request, hotel_id, room_number):
     return render(request, 'product/edit_room.html', context)
 ```
 
+### &nbsp;
+
 # <a name="forms.py">forms.py от Sergay</a> 
 
 #### Импорт необходимых модулей и форм для создания пользовательских форм
@@ -696,6 +700,8 @@ class RoomForm(forms.ModelForm):
         }
 ```
 
+### &nbsp;
+
 # <a name="urls.py">Urls.py от Sergay</a> 
 
 #### Импорт необходимых модулей и views для маршрутизации
@@ -724,6 +730,8 @@ urlpatterns = [
     path('hotel/<int:hotel_id>/room/<int:room_number>/edit/', views.edit_room, name='edit_room'),  # Редактирование комнаты
 ]
 ```
+
+### &nbsp;
 
 # <a name="admin.py">admin.py от Sergay</a> 
 
