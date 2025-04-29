@@ -11,7 +11,6 @@
 
 ### &nbsp;
 ### &nbsp;
-### &nbsp;
 
 # <a name="install_PO">Установка проекта</a>
 
@@ -23,7 +22,6 @@ python manage.py runserver
 ```
 ### Откроется наш проект с которым и предстоит работать
 
-### &nbsp;
 ### &nbsp;
 ### &nbsp;
 
