@@ -778,4 +778,6 @@ admin.site.register(Reservations)
 admin.site.register(Reviews_and_ratings)
 ```
 
+### &nbsp;
+
 ### ER-диаграмма<a name="erd_diddy">![ERD](ERD.png)</a> 
