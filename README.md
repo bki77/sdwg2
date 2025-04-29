@@ -1,10 +1,25 @@
 ## Содержание  по проекту "Комфорт отель"
+### Как установить проект
+[Установка проекта](#install_PO) 
+### Документация кода
 [models.py](#models.py)  
 [views.py](#views.py)  
 [forms.py](#forms.py)  
 [urls.py](#urls.py)  
 [admin.py](#admin.py)  
 [ERD](#erd_diddy)
+
+# <a name="install_PO">Установка проекта</a>
+
+### Создайте пустую папку и загрузите в него [Start.bat](https://github.com/Alexandr1810/HostelComfort/tree/ilya/.bat) и запустите
+### По-итогу завершения работы bat файла будут установлены все библиотеки и созданы необходимые файлы для работы сайта  
+### После в директории ../Hostle-Comfort/myproject откройте консоль и пропишите 
+``` 
+python manage.py runserver 
+```
+### Откроется наш проект с которым и предстоит работать
+
+
 
 # <a name="models.py">Model.py от Sergay</a> 
 
