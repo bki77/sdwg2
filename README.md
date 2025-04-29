@@ -9,6 +9,10 @@
 [admin.py](#admin.py)  
 [ERD](#erd_diddy)
 
+### &nbsp;
+### &nbsp;
+### &nbsp;
+
 # <a name="install_PO">Установка проекта</a>
 
 ### Создайте пустую папку и загрузите в него [Start.bat](https://github.com/Alexandr1810/HostelComfort/tree/ilya/.bat) и запустите
@@ -19,9 +23,9 @@ python manage.py runserver
 ```
 ### Откроется наш проект с которым и предстоит работать
 
-## &nbsp;
-## &nbsp;
-## &nbsp;
+### &nbsp;
+### &nbsp;
+### &nbsp;
 
 # <a name="models.py">Model.py от Sergay</a> 
 
